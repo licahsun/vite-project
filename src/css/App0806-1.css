@@ -17,6 +17,7 @@
 img {
     height: 375px;
     width: 100%;
+    object-fit: cover; /*原圖等比例縮放*/
     /* border-radius: 20px; */
 }
 
@@ -49,7 +50,7 @@ img {
 }
 
 .container {
-    
+    align-items: flex-start;
     display: flex;
     justify-content: center;
     margin: 20px;
