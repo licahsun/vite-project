@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 // import './index.css'
 // import App from './App0805-1.jsx'
-import App from './pages/App0818d.jsx'
+import App from './pages/App0819c.jsx'
 // import App from './MyApp'
 import { HashRouter } from 'react-router-dom'
 
