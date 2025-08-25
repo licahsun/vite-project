@@ -1,20 +1,24 @@
 import { MdDeleteForever } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
-import React, { useState } from 'react'
+import EditForm from './EditForm';
 
-const Todo = ({ todo, delTodo ,toggleCompleted}) => {
+const Todo = ({ todo, delTodo, toggleCompleted, toggleIsEdit , editTodo}) => {
     return (
-        //使用三元運算子的方法，控制是否套用CSS規則
-        <div className={`todo ${todo.isCompleted? 'completed':''}`}>
-            <p onClick={()=>{toggleCompleted(todo.id)}}>{todo.content}</p>
-            <div>
-                <MdDeleteForever style={{ cursor: 'pointer', marginRight: '5px' }} />
-                <FaEdit
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => { delTodo(todo.id) }} />
-
+        todo.isEdit ? <EditForm todo={todo} editTodo={editTodo}/>
+            //使用字串值+三元運算子的方法，控制是否套用CSS規則
+            : < div className={`todo ${todo.isCompleted ? 'completed' : ''}`}>
+                <p onClick={() => { toggleCompleted(todo.id) }}>{todo.content}</p>
+                <div>
+                    <FaEdit
+                        style={{ cursor: 'pointer', marginRight: '5px' }}
+                        onClick={() => { toggleIsEdit(todo.id) }}
+                    />
+                    <MdDeleteForever
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => { delTodo(todo.id) }}
+                    />
+                </div>
             </div>
-        </div>
     )
 }
 

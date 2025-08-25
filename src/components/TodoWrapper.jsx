@@ -7,10 +7,14 @@ const TodoWrapper = () => {
     // const [todos, setTodos] = useState(['繳停車費', '對發票']);
     //因為陣列內容若有增減時，索引值會異動，為避免異動資料時造成索引值錯亂，將陣列改為陣列物件
     //而key值用亂數來產生
+
+    //因為要判定todo是否被點擊，所以增加一個isCompleted屬性
+    //因為要判定todo是否修改，所以增加一個isEdit屬性
+
     const [todos, setTodos] = useState(
         [
-            { content: '繳停車費', id: Math.random(), isCompleted: false },
-            { content: '對發票', id: Math.random(), isCompleted: false },
+            { content: '繳停車費', id: Math.random(), isCompleted: false, isEdit: false },
+            { content: '對發票', id: Math.random(), isCompleted: false, isEdit: false },
 
         ]
 
@@ -25,8 +29,6 @@ const TodoWrapper = () => {
     }
 
     //建立切換isCompleted屬性函式
-    //isCompleted => false
-    //isCompleted => true
     const toggleCompleted = (id) => {
         //檢查被點擊的項目的id 是否跟陣列中的id一樣
         //yes => 1.取出todo 2.將isCompleted屬性值反向(NOT)
@@ -40,6 +42,23 @@ const TodoWrapper = () => {
         }))
     }
 
+    //建立切換isEdit屬性函式
+    const toggleIsEdit = (id) => {
+        setTodos(todos.map((todo) => {
+            return todo.id === id
+                ? { ...todo, isEdit: !todo.isEdit }
+                : todo
+        }))
+    }
+
+    //建立修改todo函式
+    const editTodo = (id, editContent) => {
+        setTodos(todos.map((todo) => {
+            return todo.id === id
+                ? { ...todo, content: editContent, isEdit: false }
+                : todo
+        }))
+    }
 
     return (
         <div className='wrapper'>
@@ -59,7 +78,12 @@ const TodoWrapper = () => {
 
             {
                 todos.map((todo) => {
-                    return <Todo todo={todo} key={todo.id} delTodo={delTodo} toggleCompleted={toggleCompleted} />
+                    return <Todo todo={todo} key={todo.id}
+                        delTodo={delTodo}
+                        toggleCompleted={toggleCompleted}
+                        toggleIsEdit={toggleIsEdit}
+                        editTodo={editTodo}
+                    />
                 })
             }
         </div>
